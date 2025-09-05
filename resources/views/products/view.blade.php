@@ -1,7 +1,28 @@
 @extends('products.main', [
-    'title' => $product->name,
+    'title' => $product->code,
 ])
+@section('header')
+    <nav>
+        <form action="{{ route('products.delete', [
+            'product' => $product->code,
+        ]) }}" method="post"
+            id="app-form-delete">
+            @csrf
+        </form>
 
+        <ul class="app-cmp-links">
+            <li>
+                <a
+                    href="{{ route('products.update-form', [
+                        'product' => $product->code,
+                    ]) }}">Update</a>
+            </li>
+            <li class="app-cl-warn">
+                <button type="submit" form="app-form-delete" class="app-cl-link">Delete</button>
+            </li>
+        </ul>
+    </nav>
+@endsection
 @section('content')
     <dl class="app-cmp-data-detail">
         <dt>Code</dt>

@@ -1,0 +1,4 @@
+INSERT INTO `shops` (`created_at`, `updated_at`, `code`, `name`, `owner`, `latitude`,`longitude`,`address`) VALUES ('2021-02-01 01:33:09', '2021-02-01 01:33:11', 'SH001', 'Paphawarin Shop', 'Paphawarin', 18.8004538,98.9488998,'College of Arts, Media and Technology
+239 Huaykaew Rd., Suthep, Muang, Chiang Mai 50200');
+INSERT INTO `shops` (`created_at`, `updated_at`, `code`, `name`, `owner`, `latitude`,`longitude`,`address`) VALUES ('2021-02-01 01:33:09', '2021-02-01 01:33:11','SH002', 'Nakwan Shop', 'Nakwan', 18.7921726,98.9575002,'Chiang Mai University Cooperative Store
+239 Huaykaew Rd., Suthep, Muang, Chiang Mai 50200');

@@ -3,6 +3,8 @@
     font-size: 16px;
 
     --app-max-width: 600px;
+    --app-primary-color: blue;
+    --app-warn-color: red;
 }
 
 html,
@@ -23,6 +25,10 @@ body {
     }
 }
 
+.app-cl-warn {
+    color: var(--app-warn-color);
+}
+
 .app-cl-number,
 input[type="number"] {
     font-family: monospace;
@@ -30,7 +36,7 @@ input[type="number"] {
 }
 
 .app-cl-code {
-    color: blue;
+    color: var(--app-primary-color);
     font-family: monospace;
     font-weight: bold;
 }
@@ -71,7 +77,7 @@ table.app-cmp-data-list {
     & > :is(label, .app-cl-label) {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: baseline;
         font-weight: bold;
     }
 }
@@ -177,7 +183,7 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
     align-items: stretch;
     column-gap: 8px;
 
-    color: blue;
+    color: var(--app-primary-color);
     font-weight: bold;
 
     & > * {
@@ -189,16 +195,75 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
         border-radius: 4px;
     }
 
-    a {
+    a,
+    .app-cl-link {
         display: block;
         box-sizing: border-box;
 
         padding: 0.5em 1ch 0.5em 1ch;
         text-decoration: none;
         color: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+
+        cursor: pointer;
+        height: 100%;
+        background-color: transparent;
+        border: none;
 
         &:hover {
             background-color: rgba(128, 128, 128, 0.75);
+        }
+    }
+}
+
+.app-cmp-links-bar {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 8px;
+
+    & > * {
+        flex: 1 0 auto;
+
+        .app-cmp-links {
+            justify-content: flex-start;
+        }
+    }
+}
+
+.pagination {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 8px;
+
+    font-weight: bold;
+
+    & > * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+
+        & > * {
+            display: block;
+            box-sizing: border-box;
+
+            padding: 0.5em 1ch 0.5em 1ch;
+            text-decoration: none;
+
+            &:is(a) {
+                color: var(--app-primary-color);
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }

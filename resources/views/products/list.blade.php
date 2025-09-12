@@ -51,6 +51,7 @@
             <th>Code</th>
             <th>Name</th>
             <th>Price</th>
+            <th>No.of shops</th>
         </tr>
     </thead>
 
@@ -67,6 +68,7 @@
             </td>
             <td>{{ $product->name }}</td>
             <td class="app-cl-number">{{ number_format($product->price, 2) }}</td>
+            <td class="app-cl-number">{{ number_format($product->shops_count,0) }}</td>
         </tr>
         @endforeach
     </tbody>

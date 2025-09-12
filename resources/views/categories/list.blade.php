@@ -1,10 +1,10 @@
-@extends('shops.main' , [
+@extends('categories.main' , [
 'title' => 'List' ,
 ])
 
 @section('header')
 <search>
-    <form action="{{ route('shops.list') }}" method="get" class="app-cmp-search-form">
+    <form action="{{ route('categories.list') }}" method="get" class="app-cmp-search-form">
         <div class="app-cmp-form-detail">
             <label for="app-criteria-term">Search</label>
             <input type="text" id="app-criteria-term" name="term" value="{{ $criteria['term'] }}" />
@@ -13,7 +13,7 @@
 
         <div class="app-cmp-form-actions">
             <button type="submit" class="primary">Search</button>
-            <a href="{{ route('shops.list') }}">
+            <a href="{{ route('categories.list') }}">
                 <button type="button" class="accent">X</button>
             </a>
         </div>
@@ -24,12 +24,12 @@
     <nav>
         <ul class="app-cmp-links">
             <li>
-                <a href="{{ route('shops.create-form') }}">New Shop</a>
+                <a href="{{ route('categories.create-form') }}">New Category</a>
             </li>
         </ul>
     </nav>
 
-    {{ $shops->withQueryString()->links() }}
+    {{ $category->withQueryString()->links() }}
 </div>
 @endsection
 
@@ -39,25 +39,23 @@
         <tr>
             <th>Code</th>
             <th>Name</th>
-            <th>Owner</th>
             <th>No.of Products</th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach($shops as $shop)
+        @foreach($category as $category)
         <tr>
             <td>
-                <a href="{{ route('shops.view', [
-                            'shop' => $shop->code,
+                <a href="{{ route('categories.view', [
+                            'category' => $category->code,
                         ]) }}"
                     class="app-cl-code">
-                    {{ $shop->code }}
+                    {{ $category->code }}
                 </a>
             </td>
-            <td>{{ $shop->name }}</td>
-            <td>{{ $shop->owner }}</td>
-            <td class="app-cl-number">{{ number_format($shop->products_count,0) }}</td>
+            <td>{{ $category->name }}</td>
+            <td class="app-cl-number">{{ number_format($category->products_count,0) }}</td>
         </tr>
         @endforeach
     </tbody>

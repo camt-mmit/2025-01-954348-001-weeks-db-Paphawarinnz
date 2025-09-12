@@ -1,5 +1,5 @@
 @extends('shops.main', [
-'title' => $shop->name,
+'title' => $shop->code,
 ])
 @section('header')
     <nav>
@@ -11,6 +11,9 @@
         </form>
 
         <ul class="app-cmp-links">
+                    <li><a href="{{ route('shops.view-products', [
+'shop' => $shop->code,
+]) }}">View Products</a></li>
             <li>
                 <a
                     href="{{ route('shops.update-form', [

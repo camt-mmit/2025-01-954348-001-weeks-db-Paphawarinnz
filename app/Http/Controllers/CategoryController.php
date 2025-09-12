@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Psr\Http\Message\ServerRequestInterface;
 
-class ProductController extends SearchableController
+class CategoryController extends SearchableController
 {
     const int MAX_ITEMS = 5;
     #[\Override]
     function getQuery(): Builder
     {
-        return Product::orderBy('code');
+        return Category::orderBy('code');
     }
 
     #[\Override]
@@ -64,82 +64,82 @@ class ProductController extends SearchableController
     function list(ServerRequestInterface $request): View
     {
         $criteria = $this->prepareCriteria($request->getQueryParams());
-        $query = $this->search($criteria)->withCount('shops');
+        $query = $this->search($criteria)->withCount('products');
 
 
-        return view('products.list', [
+        return view('categories.list', [
             'criteria' => $criteria,
-            'products' => $query->paginate(self::MAX_ITEMS),
+            'category' => $query->paginate(self::MAX_ITEMS),
         ]);
     }
 
-    function view(string $productCode): View
+    function view(string $categoryCode): View
     {
-        $product = $this->find($productCode);
+        $category = $this->find($categoryCode);
 
 
-        return view('products.view', [
-            'product' => $product,
+        return view('categories.view', [
+            'category' => $category,
         ]);
     }
 
     function showCreateForm(): View
     {
-        return view('products.create-form');
+        return view('categories.create-form');
     }
 
     function create(ServerRequestInterface $request): RedirectResponse
     {
-        $product = Product::create($request->getParsedBody());
+        $category = Category::create($request->getParsedBody());
 
-        return redirect()->route('products.list');
+        return redirect()->route('categories.list');
     }
 
-    function showUpdateForm(string $productCode): View
+    function showUpdateForm(string $categoryCode): View
     {
-        $product = $this->find($productCode);
+        $category = $this->find($categoryCode);
 
-        return view('products.update-form', [
-            'product' => $product,
+        return view('categories.update-form', [
+            'category' => $category,
         ]);
     }
 
     function update(
         ServerRequestInterface $request,
-        string $productCode,
+        string $categoriesCode,
     ): RedirectResponse {
-        $product = $this->find($productCode);
-        $product->fill($request->getParsedBody());
-        $product->save();
+        $category = $this->find($categoriesCode);
+        $category->fill($request->getParsedBody());
+        $category->save();
 
-        return redirect()->route('products.view', [
-            'product' => $product->code,
+        return redirect()->route('categories.view', [
+            'category' => $category->code,
         ]);
     }
 
-    function delete(string $productCode): RedirectResponse
+    function delete(string $categoryCode): RedirectResponse
     {
-        $product = $this->find($productCode);
-        $product->delete();
+        $category = $this->find($categoryCode);
+        $category->delete();
 
-        return redirect()->route('products.list');
+        return redirect()->route('categories.list');
     }
 
-    function viewShops(
+     function viewProducts(
         ServerRequestInterface $request,
-        ShopController $shopController,
-        string $productCode
+        ProductController $productController,
+        string $categoryCode
     ): View {
-        $product = $this->find($productCode);
-        $criteria = $shopController->prepareCriteria($request->getQueryParams());
-        $query = $shopController
+        $category = $this->find($categoryCode);
+        $criteria = $productController->prepareCriteria($request->getQueryParams());
+        $query = $productController
 
-            ->filter($product->shops(), $criteria)
+            ->filter($category->products(), $criteria)
             ->withCount('products');
-        return view('products.view-shops', [
-            'product' => $product,
+        return view('categories.view-products', [
+            'category' => $category,
             'criteria' => $criteria,
-            'shops' => $query->paginate($shopController::MAX_ITEMS),
+            'products' => $query->paginate($productController::MAX_ITEMS),
         ]);
     }
 }

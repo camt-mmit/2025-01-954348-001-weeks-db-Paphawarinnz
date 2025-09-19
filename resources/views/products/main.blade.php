@@ -1,7 +1,7 @@
 @extends('layouts.main' ,[
 'title' => "Products: {$title}". (isset($subTitle) ? "{$subTitle}":''),
 ])
-
+ 
 @section('title')
 Products:
 <span @class($titleClasses ?? [])>{{$title}}</span>

@@ -16,7 +16,7 @@ class ShopController extends SearchableController
     {
         return  Shop::orderBy('code');
     }
-
+     
     function list(ServerRequestInterface $request): View
     {
         $criteria = $this->prepareCriteria($request->getQueryParams());
@@ -50,7 +50,7 @@ class ShopController extends SearchableController
     }
 
 
-    function showUpdateForm(string $shopCode): View
+     function showUpdateForm(string $shopCode): View
     {
         $shop = $this->find($shopCode);
 
@@ -59,50 +59,59 @@ class ShopController extends SearchableController
         ]);
     }
 
-    function update(ServerRequestInterface $request, string $shopCode,): RedirectResponse
-    {
+    function update( ServerRequestInterface $request, string $shopCode,): RedirectResponse {
         $shop = $this->find($shopCode);
-        $shop->fill($request->getParsedBody());
-        /** */
+        $shop->fill($request->getParsedBody());/** */
         $shop->save();
 
         return redirect()->route('shops.view', [
-            'shop' => $shop->code,
-            /**ส่งโพรดักโค้ดไปด้วยเพราะ วิวต้องการ */
+            'shop' => $shop->code,/**ส่งโพรดักโค้ดไปด้วยเพราะ วิวต้องการ */
         ]);
-    }
+    }   
 
-    function delete(string $shopCode): RedirectResponse
+      function delete(string $shopCode): RedirectResponse
     {
-        $shop = $this->find($shopCode);
-        /**ก่อนจะดีลีทต้องเอาโพรดักมาก่อน */
+        $shop = $this->find($shopCode);/**ก่อนจะดีลีทต้องเอาโพรดักมาก่อน */
         $shop->delete();
 
         return redirect()->route('shops.list');
     }
-
-    #[\Override]
+#[\Override]
     function applyWhereToFilterByTerm(Builder $query, string $word): void
     {
-        parent::applyWhereToFilterByTerm($query, $word);
-        $query->orWhere('owner', 'LIKE', "%{$word}%");
+        parent::applyWhereToFilterByTerm($query,$word);
+        // กำหนดการค้นหาสำหรับ Shop
+        $query
+            ->orWhere('code', 'LIKE', "%{$word}%")
+            ->orWhere('name', 'LIKE', "%{$word}%")
+            ->orWhere('owner', 'LIKE', "%{$word}%");
     }
-    
+
      function viewProducts(
-        ServerRequestInterface $request,
+        ServerRequestInterface $request,//ดึงตัวโปรดักให้ได้ก่อน
         ProductController $productController,
         string $shopCode
     ): View {
         $shop = $this->find($shopCode);
-        $criteria = $productController->prepareCriteria($request->getQueryParams());
-        $query = $productController
+        $criteria = $productController->prepareCriteria($request->getQueryParams());//รับมาแบบเกทแล้วส่งไปพรีแพรที่ช้อปคอนโทรลเลอร์
 
+        $query = $productController 
+            //$shop->products(), //ช้อปที่มีรีเลชั่นกับโพรดักตัวนี้
+/// $criteriฟ )
+           // ->withCount('shops');
             ->filter($shop->products(), $criteria)
-            ->withCount('shops');
+            ->with('category')->withCount('shops');
+         
+
+
+            
         return view('shops.view-products', [
             'shop' => $shop,
             'criteria' => $criteria,
             'products' => $query->paginate($productController::MAX_ITEMS),
+        
         ]);
     }
+  
+
 }

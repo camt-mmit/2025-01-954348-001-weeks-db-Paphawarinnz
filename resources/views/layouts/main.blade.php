@@ -12,35 +12,41 @@
 
 <body>
     <header id="app-cmp-main-header">
+
         <nav>
             <ul class="app-cmp-links">
                 <li>
-                    <a href="{{ route('products.list') }}">Products</a>               
-                </li>
-                  <li>
-                    <a href="{{ route('categories.list') }}">Categories</a>               
+                    <a href="{{ route('products.list') }}">Products</a>
+                  
                 </li>
                 <li>
-                    <a href="{{ route('shops.list') }}">Shops</a>
+                    <a href="{{ route('categories.list') }}">Categories</a>
+                  
                 </li>
+                 <li>
+                    <a href="{{ route('shops.list') }}">Shops</a>
+                  
+                </li>
+             
             </ul>
         </nav>
+
     </header>
 
     <main id="app-cmp-main-content" @class($mainClasses ?? [])>
         <header>
-            
-            <h1>{{ $title }}</h1>
+            <h1>@yield('title', $title)</h1>
             @yield('header')
-
+         
         </header>
 
         @yield('content')
     </main>
 
     <footer id="app-cmp-main-footer">
-        &#xA9; Copyright Paphawarin's Database.
+        &#xA9; Copyright Nakhwan's Database.
     </footer>
 </body>
 
 </html>
+  

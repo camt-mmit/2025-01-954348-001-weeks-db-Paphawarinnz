@@ -66,7 +66,7 @@
             </a>
             <td>{{ $shop->name}}</td>
             <td>{{ $shop->owner}}</td>
-             <td class="app-cl-number">{{number_format($shop->products_count, 0) }}</td>
+            <td class="app-cl-number">{{number_format($shop->products_count, 0) }}</td>
             
 
         </tr>

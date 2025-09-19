@@ -1,15 +1,15 @@
 @extends('categories.main', [
-'title' => $category->code,
+    'title' => $category->code,
+    'titleClasses' => ['app-cl-code'], {{-- แก้ไขตรงนี้: titleClasses แทน titleclasses --}}
 ])
 @section('header')
 <nav>
     <form action="{{ route('categories.delete', [
-            'category' => $category->code,
-        ]) }}" method="post"
-        id="app-form-delete">
-        @csrf
-    </form>
-
+    'category' => $category->code,
+]) }}" method="post"
+    id="app-form-delete">
+    @csrf
+</form>
     <ul class="app-cmp-links">
         <li><a href="{{ route('categories.view-products', [
 'category' => $category->code,
@@ -27,17 +27,21 @@
 </nav>
 @endsection
 @section('content')
-<dl class="app-cmp-data-detail">
+    <dl class="app-cmp-data-detail">
     <dt>Code</dt>
-    <dd>
-        <span class="app-cl-code">{{ $category->code }}</span>
-    </dd>
+  <dd>
+    <span class="app-cl-code">{{ $category->code }}</span>
+</dd>
 
     <dt>Name</dt>
     <dd>
         {{ $category->name }}
     </dd>
 
-    <pre>{{ $category->description }}</pre>
+   
+    <dd>
+        {{ $category->description }}
+    </dd>
+</dl>
 
-    @endsection
+@endsection

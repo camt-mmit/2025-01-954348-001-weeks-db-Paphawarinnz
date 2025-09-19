@@ -10,16 +10,16 @@
 
         <div class="app-cmp-form-detail">
             <label for="app-inp-code">Code</label>
-            <input type="text" id="app-inp-code" name="code" value="{{ $product->code }}" required />
+            <input type="text" id="app-inp-code" name="code" required  value="{{$product->code}}"/>
 
             <label for="app-inp-name">Name</label>
-            <input type="text" id="app-inp-name" name="name" value="{{ $product->name }}" required />
+            <input type="text" id="app-inp-name" name="name" required  value="{{$product->name}}" />
 
             <label for="app-inp-price">Price</label>
-            <input type="number" id="app-inp-price" name="price" value="{{ $product->price }}" step="any" required />
+            <input type="number" id="app-inp-price" name="price" step="any" required  value="{{$product->price}}" />
 
             <label for="app-inp-description">Description</label>
-            <textarea id="app-inp-description" name="description" cols="80" rows="10" required>{{ $product->description }}</textarea>
+            <textarea id="app-inp-description" name="description" required cols="80" rows="20"> {{$product->description}}"</textarea>
         </div>
 
         <div class="app-cmp-form-actions">

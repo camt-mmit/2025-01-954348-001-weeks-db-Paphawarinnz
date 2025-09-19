@@ -17,7 +17,7 @@
             <input type="number" id="app-inp-price" name="price" step="any" required />
 
             <label for="app-inp-description">Description</label>
-            <textarea id="app-inp-description" name="description" cols="80" rows="10" required></textarea>
+            <textarea id="app-inp-description" name="description" cols="80" rows="20" required></textarea>
         </div>
 
         <div class="app-cmp-form-actions">

@@ -1,7 +1,7 @@
 @extends('layouts.main' ,[
-'title' => "Categories: {$title}". (isset($subTitle) ? "{$subTitle}":''),
+    'title' => "Categories: {$title}". (isset($subTitle) ? "{$subTitle}":''),
 ])
-
+ 
 @section('title')
 Categories:
 <span @class($titleClasses ?? [])>{{$title}}</span>

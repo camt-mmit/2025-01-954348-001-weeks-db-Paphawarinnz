@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    protected $fillable = ['code', 'name', 'description'];
-
-    function products(): HasMany
-    {
-        return $this->HasMany(Product::class);
-    }
+    protected $fillable = ['code', 'name','description'];
+     // week9
+    function products (): Hasmany {
+return $this->hasMany(Product::class);
+}
 }
